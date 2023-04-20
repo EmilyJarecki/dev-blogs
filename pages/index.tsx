@@ -3,12 +3,14 @@ import BlogCard from "@/components/BlogCard";
 import { readPostsInfo } from "@/lib/helper";
 import { PostApiResponse } from "@/utils/types";
 
+//THIS IS THE SAME AS THE INDEX.TSX 
+//THIS USED TO BE THE 'HOME' PAGE 
+//but I want the article lists on the home page 
+//so I just temporarily added this here
 
+//basically localhost:3000/ and localhost:3000/blogs is the same thing
 
 export const getStaticProps = async()=>{
-    // const {postInfo}:PostApiResponse = await fetch(
-    //     "http://localhost:3000/api/posts"
-    // ).then((data)=>data.json());
 
 const postInfo: PostApiResponse = readPostsInfo()
 
@@ -35,3 +37,6 @@ const Blogs: NextPage<Props> = ({posts})=>{
 }
 
 export default Blogs;
+
+
+

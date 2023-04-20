@@ -21,13 +21,15 @@ const SinglePage: NextPage<Props> = ({ post }) => {
     if (router.isFallback) {
         return <p>Loading...</p>
     }
-
+   //This extracts the content and title of the post from the post prop that was passed in from getStaticProps.
     const { content, title } = post
+
     return (
         <div className="max-w-3xl mx-auto">
             <h1 className="font-semibold text-2xl py-5">{title}</h1>
-            {/* prose is magic */}
+            {/* prose is magic- organized the content on frontend */}
             <div className="prose pb-20">
+                {/* This is rendering the content (passed via props above) using the MDXRemote component from the next-mdx-remote package */}
                 <MDXRemote {...content} />
 
             </div>
@@ -39,17 +41,19 @@ const SinglePage: NextPage<Props> = ({ post }) => {
 export const getStaticPaths: GetStaticPaths = () => {
     //reading paths
     //see description of events at posts.ts
+    //This reads the directory where the markdown files are stored and maps over them to generate an array of objects that specify the dynamic routes for each post.
     const dirPathToRead = path.join(process.cwd(), "posts")
     const dirs = fs.readdirSync(dirPathToRead)
     const paths = dirs.map(filename => {
         const filePathToRead = path.join(process.cwd(), "posts/" + filename)
         const fileContent = fs.readFileSync(filePathToRead, { encoding: "utf-8" })
+        
+        //This uses the gray-matter package to extract the slug data from the front matter of the markdown file and returns it as a parameter for the dynamic route.
         return { params: { postSlug: matter(fileContent).data.slug } }
     })
-    console.log(paths)
 
     return {
-        //paths is from above
+        //paths is from above (the array)
         paths,
 
         //fallback options
@@ -60,10 +64,11 @@ export const getStaticPaths: GetStaticPaths = () => {
 
     }
 }
-
+//interface adds a postSlug property of type string to the query parameters.
 interface IStaticProps extends ParsedUrlQuery {
     postSlug: string
 }
+//defines the shape of the data that will be passed as props to the SinglePage component
 type Post = {
     post: {
         title: string;
@@ -73,29 +78,39 @@ type Post = {
 
 //allows you to fetch data at build time and pass it as props to a Next.js page component
 //rather than generated on the fly at runtime for each request
+// returns the props that will be passed to the SinglePage component
+//context => an object containing information about the request, including the query parameters
 export const getStaticProps: GetStaticProps<Post> = async (context) => {
-
-
     try {
         const { params } = context;
+
+        //context extracts the postSlug parameter from the query parameters using destructuring and casts it to the IStaticProps type
         const { postSlug } = params as IStaticProps;
 
         const filePathToRead = path.join(process.cwd(), "posts/" + postSlug + '.md')
         const fileContent = fs.readFileSync(filePathToRead, { encoding: "utf-8" })
 
-        // const { content, data } = matter(fileContent)
+        //reads the contents of the markdown file corresponding to the postSlug 
+        //using fs.readFileSync and 
+        //passes it to the serialize function from next-mdx-remote 
+        //to convert it to an MDXRemoteSerializeResult object mentioned above
         const source: any = await serialize(fileContent, { parseFrontmatter: true })
 
         return {
             props: {
                 post: {
+
+                    //the MDXRemoteSerializeResult object 
                     content: source,
+
+                    // title is extracted from the frontmatter of the markdown file
                     title: source.frontmatter.title
                 }
             }
         }
     } catch (error) {
         return{
+            //404 error
             notFound: true
         }
     }
