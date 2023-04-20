@@ -3,18 +3,25 @@ import fs from 'fs'
 import matter from 'gray-matter'
 import path from 'path'
 import { ParsedUrlQuery } from 'querystring';
+import { useRouter } from 'next/router';
 
 //trying to turn md into content for page
 import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote"
 import { serialize } from "next-mdx-remote/serialize"
 
 
-type Props = InferGetStaticPropsType<typeof getStaticProps>
+type Props = InferGetStaticPropsType<typeof getStaticProps>;
 
 
 //this is the dynamic route
 //"NextPage" type specidies the props that will be recieved 
 const SinglePage: NextPage<Props> = ({ post }) => {
+    const router = useRouter();
+
+    if (router.isFallback) {
+        return <p>Loading...</p>
+    }
+
     const { content, title } = post
     return (
         <div className="max-w-3xl mx-auto">
@@ -45,8 +52,11 @@ export const getStaticPaths: GetStaticPaths = () => {
         //paths is from above
         paths,
 
-        //Next.js will return a 404 page if a user requests a path that is not specified in the paths array.
-        fallback: false,
+        //fallback options
+        //false=> will return 404 page for new unknown slug
+        //blocking => will see the slug, try to get data form static pages, and if there is page, it will frist hang the browser and try to geberate new page
+        //true => return the fake page for some time and one thre data is ready it will serve them page props
+        fallback: 'blocking',
 
     }
 }
@@ -64,23 +74,35 @@ type Post = {
 //allows you to fetch data at build time and pass it as props to a Next.js page component
 //rather than generated on the fly at runtime for each request
 export const getStaticProps: GetStaticProps<Post> = async (context) => {
-    const { params } = context;
-    const { postSlug } = params as IStaticProps;
 
-    const filePathToRead = path.join(process.cwd(), "posts/" + postSlug + '.md')
-    const fileContent = fs.readFileSync(filePathToRead, { encoding: "utf-8" })
 
-    // const { content, data } = matter(fileContent)
-    const source: any = await serialize(fileContent, { parseFrontmatter: true })
+    try {
+        const { params } = context;
+        const { postSlug } = params as IStaticProps;
 
-    return {
-        props: {
-            post: {
-                content: source,
-                title: source.frontmatter.title
+        const filePathToRead = path.join(process.cwd(), "posts/" + postSlug + '.md')
+        const fileContent = fs.readFileSync(filePathToRead, { encoding: "utf-8" })
+
+        // const { content, data } = matter(fileContent)
+        const source: any = await serialize(fileContent, { parseFrontmatter: true })
+
+        return {
+            props: {
+                post: {
+                    content: source,
+                    title: source.frontmatter.title
+                }
             }
         }
+    } catch (error) {
+        return{
+            notFound: true
+        }
     }
+
+
+
+
 }
 
 
