@@ -1,4 +1,4 @@
-## This is my dev blogs
+## This is DevBlogs
 
 ### 🔗<a href="https://dev-blogs-brown.vercel.app/blogs">Live Site</a>
 
