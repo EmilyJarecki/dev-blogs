@@ -23,10 +23,11 @@ One of the significant advantages of Big O notation in JavaScript development is
 - O(2^n)
 - O(n log n)
 
-Here is a great [graph](https://www.google.com/url?sa%3Di%26url%3Dhttps%3A%2F%2Fdanielmiessler.com%2Fstudy%2Fbig-o-notation%2F%26psig%3DAOvVaw3FUkl_E2WrFRSZ6clY6VCQ%26ust%3D1683917891571000%26source%3Dimages%26cd%3Dvfe%26ved%3D0CBAQjRxqFwoTCOiH6o_57f4CFQAAAAAdAAAAABAE) to picture it. 
+Here is a great graph to picture it: ![graph](https://danielmiessler.com/images/big-o-chart-tutorial-bazar-aymptotic-notations-1.png)
 ## O(1)
-Operations with constant time complexity take the same amount of time to complete regardless of the input size. 
-> An example of this would be accessing an element in an array by index.
+Operations with constant time complexity take the same amount of time to complete regardless of the input size.
+
+__*An example of this would be accessing an element in an array by index.*__
 
 
 ```
@@ -36,9 +37,9 @@ const firstElement = arr[0]; // Takes the same amount of time regardless of arra
 
 
 ## O(n)
-Operations with linear time complexity have a running time that is directly proportional to the input size. 
+Operations with linear time complexity have a running time that is directly proportional to the input size.
 
-> An example of this would be searching an unsorted array for a specific value.
+__*An example of this would be searching an unsorted array for a specific value.*__
 
 ```
 const arr = [1, 2, 3, 4, 5];
@@ -55,8 +56,9 @@ console.log(index); // Output: 3
 ```
 
 ## O(log n) 
-Operations with quadratic time complexity have a running time that is proportional to the square of the input size. 
-> An example of this would be comparing all elements in an array using nested loops.
+Operations with quadratic time complexity have a running time that is proportional to the square of the input size.
+
+__*An example of this would be comparing all elements in an array using nested loops.*__
 
 ```
 const arr = [1, 2, 3, 4, 5];
@@ -69,8 +71,9 @@ for (let i = 0; i < arr.length; i++) {
 ```
 
 ## O(n^2)
-Operations with quadratic time complexity have a running time that is proportional to the square of the input size. 
-> An example of this would be comparing all elements in an array using nested loops.
+Operations with quadratic time complexity have a running time that is proportional to the square of the input size.
+
+__*An example of this would be comparing all elements in an array using nested loops.*__
 
 ```
 const arr = [1, 2, 3, 4, 5];
@@ -83,8 +86,9 @@ for (let i = 0; i < arr.length; i++) {
 ```
 
 ## O(log n)
-Operations with logarithmic time complexity have a running time that grows slowly as the input size grows. 
-> An example of this would be performing a binary search on a sorted array.
+Operations with logarithmic time complexity have a running time that grows slowly as the input size grows.
+
+__*An example of this would be performing a binary search on a sorted array.*__
 
 ```
 const arr = [1, 2, 3, 4, 5];
@@ -106,8 +110,9 @@ while (low <= high) {
 ```
 
 ## O(n log n) 
-Operations with log-linear time complexity have a running time that grows slightly faster than logarithmic time complexity. 
-> An example of this would be sorting an array using the mergesort algorithm.
+Operations with log-linear time complexity have a running time that grows slightly faster than logarithmic time complexity.
+
+__*An example of this would be sorting an array using the mergesort algorithm.*__
 
 ```
 function merge(left, right) {
@@ -126,3 +131,5 @@ function merge(left, right) {
 merge([1, 4], [2, 6, 9]) // [1, 2, 4, 6, 9]
 ```
 
+## The moral of the story...
+There are endless ways to solve algorithms and data structures but it's important to keep in mind that some ways are better than others. Practice those Leetcode and HackerRank challenges until you can do them. Then practice them again until you can do them better. 
