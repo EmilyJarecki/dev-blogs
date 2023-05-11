@@ -32,43 +32,62 @@ __*An example of this would be accessing an element in an array by index.*__
 
 ```
 const arr = [1, 2, 3, 4, 5];
-const firstElement = arr[0]; // Takes the same amount of time regardless of array size
+const firstElement = arr[0]; 
 ```
 
+Accessing the first element of the array using the index 0 takes the same amount of time regardless of the size of the array, since the index calculation is constant time, making the time complexity O(1).
 
 ## O(n)
 Operations with linear time complexity have a running time that is directly proportional to the input size.
 
 __*An example of this would be searching an unsorted array for a specific value.*__
 
-```
-const arr = [1, 2, 3, 4, 5];
-const valueToFind = 4;
 
-let index = -1;
-for (let i = 0; i < arr.length; i++) {
-  if (arr[i] === valueToFind) {
-    index = i;
-    break;
-  }
-}
-console.log(index); // Output: 3
 ```
+function bigO(array) {
+  let sum = 0;
+  let product = 1;
+  for (let i = 0; i < array.length; i++) {
+    sum += array[i];
+  }
+  for (let i = 0; i < array.length; i++) {
+    product *= array[i];
+  }
+  console.log(sum + ", " + product);
+}
+```
+
+It's important to note that the fact that this function uses an array twice doesn't matter. What's different here is that something is *happening* to the variable after iterating through it- adding or multiplying it into the array. 
+
+Since both loops iterate over all n elements of the array, the time complexity of each loop is O(n). Therefore, the overall time complexity of the function is O(n) + O(n) = O(2n), which is simplified to O(n).
 
 ## O(log n) 
 Operations with quadratic time complexity have a running time that is proportional to the square of the input size.
 
-__*An example of this would be comparing all elements in an array using nested loops.*__
+__*An example of this would be a binary search where we compare all elements in the array*__
 
 ```
-const arr = [1, 2, 3, 4, 5];
+function binarySearch(arr, target) {
+  let left = 0;
+  let right = arr.length - 1;
 
-for (let i = 0; i < arr.length; i++) {
-  for (let j = 0; j < arr.length; j++) {
-    console.log(`${arr[i]} compared to ${arr[j]}`);
+  while (left <= right) {
+    const mid = Math.floor((left + right) / 2);
+    if (arr[mid] === target) {
+      return mid;
+    } else if (arr[mid] < target) {
+      left = mid + 1;
+    } else {
+      right = mid - 1;
+    }
   }
+
+  return -1; // target not found
 }
 ```
+
+This one uses a little bit more math. The algorithm works by dividing the search space in half at each iteration. In each iteration, the algorithm checks whether the middle element of the search space is equal to the target value or not. If the middle element is equal to the target value, the search is successful and the algorithm returns the index of the middle element. Otherwise, the search space is divided in half again, and the algorithm continues searching in the appropriate half. This process is repeated until the target value is found or the search space is empty. Since the search space is divided in half at each iteration, the number of iterations required to find the target value grows logarithmically with the size of the input array.
+
 
 ## O(n^2)
 Operations with quadratic time complexity have a running time that is proportional to the square of the input size.
@@ -85,29 +104,25 @@ for (let i = 0; i < arr.length; i++) {
 }
 ```
 
-## O(log n)
+The outer loop iterates n times where n is the length of the array arr. For each iteration of the outer loop, the inner loop also iterates n times, giving a total of n*n or n^2 iterations. Therefore, the time complexity of this code is O(n^2).
+
+## O(2^n)
 Operations with logarithmic time complexity have a running time that grows slowly as the input size grows.
 
-__*An example of this would be performing a binary search on a sorted array.*__
+__*An example of this would be the recursive Fibonacci function.*__
 
 ```
-const arr = [1, 2, 3, 4, 5];
-const valueToFind = 4;
-
-let low = 0;
-let high = arr.length - 1;
-while (low <= high) {
-  const mid = Math.floor((low + high) / 2);
-  if (arr[mid] === valueToFind) {
-    console.log(mid); // Output: 3
-    break;
-  } else if (arr[mid] < valueToFind) {
-    low = mid + 1;
+function fibonacci(n) {
+  if (n <= 1) {
+    return n;
   } else {
-    high = mid - 1;
+    return fibonacci(n - 1) + fibonacci(n - 2);
   }
 }
 ```
+
+In this example, the number of function calls doubles with each increase in n. For example, if we call fibonacci(5), the function will be called a total of 15 times. If we call fibonacci(10), the function will be called a total of 1,023 times. As n gets larger, the time required to compute the result grows *very* quickly.
+
 
 ## O(n log n) 
 Operations with log-linear time complexity have a running time that grows slightly faster than logarithmic time complexity.
@@ -130,6 +145,12 @@ function merge(left, right) {
 }
 merge([1, 4], [2, 6, 9]) // [1, 2, 4, 6, 9]
 ```
+
+Merge sort is a sorting algorithm that works by dividing an array into smaller and smaller pieces, sorting those pieces, and then combining them back together. It does this recursively until the entire array is sorted.
+
+Each time the array is divided into smaller pieces, it takes O(n) time to split the array into two halves. Since this happens recursively, the total time complexity for dividing the array is O(log n).
+
+Then, each time two sorted arrays are combined back together, it takes O(n) time to compare and merge the two arrays into one sorted array. Since this happens for every pair of arrays that are combined, the total time complexity for combining all the arrays is O(n log n).
 
 ## The moral of the story...
 There are endless ways to solve algorithms and data structures but it's important to keep in mind that some ways are better than others. Practice those Leetcode and HackerRank challenges until you can do them. Then practice them again until you can do them better. 
