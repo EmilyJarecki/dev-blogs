@@ -112,7 +112,7 @@ for (let i = 0; i < arr.length; i++) {
 The outer loop iterates n times where n is the length of the array arr. For each iteration of the outer loop, the inner loop also iterates n times, giving a total of n*n or n<sup>2</sup> iterations. Therefore, the time complexity of this code is O(n<sup>2</sup>).
 
 ## O(2<sup>n</sup>)
-Operations with logarithmic time complexity have a running time that grows as the input size grows, and is not good. 
+Operations with exponential time complexity have a running time that grows as the input size grows, and is not good. 
 
 __*An example of this would be the recursive Fibonacci function.*__
 
