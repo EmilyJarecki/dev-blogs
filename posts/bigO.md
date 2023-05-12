@@ -11,7 +11,9 @@ Big O notation is a fundamental concept in computer science and software enginee
 
 ## Why do you need to understand it? 
 
-One of the significant advantages of Big O notation in JavaScript development is that it helps developers identify performance issues in their code. Even minor inefficiencies can add up to significant delays in loading and processing times, which can affect user experience. By understanding the Big O notation of their code, developers can pinpoint the most time-consuming operations and focus on optimizing them. Furthermore, it can also help developers choose the best algorithms and data structures for a given problem. Different algorithms and data structures have different time complexities, and selecting the most appropriate one is crucial to achieving the best performance. Big O notation enables developers to determine the most efficient approach to solve a problem.
+One of the significant advantages of Big O notation in JavaScript development is that it helps developers identify performance issues in their code. Even minor inefficiencies can add up to significant delays in loading and processing times, which can affect user experience. By understanding the Big O notation of their code, developers can pinpoint the most time-consuming operations and focus on optimizing them. 
+
+Furthermore, it can also help developers choose the best algorithms and data structures for a given problem. Different algorithms and data structures have different time complexities, and selecting the most appropriate one is crucial to achieving the best performance. Big O notation enables developers to determine the most efficient approach to solve a problem.
 
 
 **There are many other time complexities, but these are some of the most common ones used in Big O notation to describe the performance of algorithms:**
@@ -19,8 +21,8 @@ One of the significant advantages of Big O notation in JavaScript development is
 - O(1)
 - O(n)
 - O(log n) 
-- O(n^2)
-- O(2^n)
+- O(n<sup>2</sup>)
+- O(2<sup>n</sup>)
 - O(n log n)
 
 Here is a great graph to picture it: ![graph](https://danielmiessler.com/images/big-o-chart-tutorial-bazar-aymptotic-notations-1.png)
@@ -86,10 +88,14 @@ function binarySearch(arr, target) {
 }
 ```
 
-This one uses a little bit more math. The algorithm works by dividing the search space in half at each iteration. In each iteration, the algorithm checks whether the middle element of the search space is equal to the target value or not. If the middle element is equal to the target value, the search is successful and the algorithm returns the index of the middle element. Otherwise, the search space is divided in half again, and the algorithm continues searching in the appropriate half. This process is repeated until the target value is found or the search space is empty. Since the search space is divided in half at each iteration, the number of iterations required to find the target value grows logarithmically with the size of the input array.
+This one uses a little bit more math. The algorithm works by dividing the search space in half at each iteration. In each iteration, the algorithm checks whether the middle element of the search space is equal to the target value or not. If the middle element is equal to the target value, the search is successful and the algorithm returns the index of the middle element. Otherwise, the search space is divided in half again, and the algorithm continues searching in the appropriate half. 
+
+This process is repeated until the target value is found or the search space is empty. Since the search space is divided in half at each iteration, the number of iterations required to find the target value grows logarithmically with the size of the input array.
+
+It takes up more time than a linear time complexity since we are doing something but not as much as a constant because we don't have to go through each element. 
 
 
-## O(n^2)
+## O( n<sup>2</sup> )
 Operations with quadratic time complexity have a running time that is proportional to the square of the input size.
 
 __*An example of this would be comparing all elements in an array using nested loops.*__
@@ -104,10 +110,10 @@ for (let i = 0; i < arr.length; i++) {
 }
 ```
 
-The outer loop iterates n times where n is the length of the array arr. For each iteration of the outer loop, the inner loop also iterates n times, giving a total of n*n or n^2 iterations. Therefore, the time complexity of this code is O(n^2).
+The outer loop iterates n times where n is the length of the array arr. For each iteration of the outer loop, the inner loop also iterates n times, giving a total of n*n or n<sup>2</sup> iterations. Therefore, the time complexity of this code is O(n<sup>2</sup>).
 
-## O(2^n)
-Operations with logarithmic time complexity have a running time that grows slowly as the input size grows.
+## O(2<sup>n</sup>)
+Operations with logarithmic time complexity have a running time that grows as the input size grows, and is not good. 
 
 __*An example of this would be the recursive Fibonacci function.*__
 
@@ -121,8 +127,25 @@ function fibonacci(n) {
 }
 ```
 
-In this example, the number of function calls doubles with each increase in n. For example, if we call fibonacci(5), the function will be called a total of 15 times. If we call fibonacci(10), the function will be called a total of 1,023 times. As n gets larger, the time required to compute the result grows *very* quickly.
+In this example, the number of function calls doubles with each increase in n. For example, if we call fibonacci(5), the function will be called a total of 15 times. 
 
+Why? 
+
+```
+fibonacci(5) = fibonacci(4) + fibonacci(3)
+              = (fibonacci(3) + fibonacci(2)) + (fibonacci(2) + fibonacci(1))
+              = ((fibonacci(2) + fibonacci(1)) + (fibonacci(1) + fibonacci(0))) + ((fibonacci(1) + fibonacci(0)) + 1)
+              = (((fibonacci(1) + fibonacci(0)) + 1) + 1) + ((1 + 0) + 1)
+              = (((1 + 0) + 1) + 1) + 2
+              = 5
+```
+
+The final output of calling fibonacci(5) is 5, which is the 5th number in the Fibonacci sequence.
+
+
+If we call fibonacci(10), where the 10th number is 55, the function will be called a total of 1,023 times. As n gets larger, the time required to compute the result grows *very* quickly.
+
+A more efficient approach is to use an iterative algorithm or a memoized recursive algorithm which stores previously computed values in an array or object to avoid redundant calculations.
 
 ## O(n log n) 
 Operations with log-linear time complexity have a running time that grows slightly faster than logarithmic time complexity.
