@@ -4,7 +4,6 @@ meta: Big O notation is a fundamental concept in computer science and software e
 slug: bigO
 ---
 
-# The Big O
 ## What is it?
 
 Big O notation is a fundamental concept in computer science and software engineering, particularly in the world of JavaScript. It is a way of measuring the efficiency of an algorithm and predicting its behavior as the input size increases. Big O notation is represented as a mathematical function of the input size, typically denoted as "n", that describes how the number of operations performed by the algorithm scales with the input size.
@@ -145,7 +144,7 @@ The final output of calling fibonacci(5) is 5, which is the 5th number in the Fi
 
 If we call fibonacci(10), where the 10th number is 55, the function will be called a total of 1,023 times. As n gets larger, the time required to compute the result grows *very* quickly.
 
-A more efficient approach is to use an iterative algorithm or a memoized recursive algorithm which stores previously computed values in an array or object to avoid redundant calculations.
+> A more efficient approach is to use an iterative algorithm or a memoized recursive algorithm which stores previously computed values in an array or object to avoid redundant calculations.
 
 ## O(n log n) 
 Operations with log-linear time complexity have a running time that grows slightly faster than logarithmic time complexity.
