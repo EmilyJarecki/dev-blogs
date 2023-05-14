@@ -63,7 +63,7 @@ It's important to note that the fact that this function uses an array twice does
 Since both loops iterate over all n elements of the array, the time complexity of each loop is O(n). Therefore, the overall time complexity of the function is O(n) + O(n) = O(2n), which is simplified to O(n).
 
 ## O(log n) 
-Operations with quadratic time complexity have a running time that is proportional to the square of the input size.
+Operations with logarithmic time complexity have a running time that is proportional to the square of the input size.
 
 __*An example of this would be a binary search where we compare all elements in the array*__
 
