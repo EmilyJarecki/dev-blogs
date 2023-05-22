@@ -58,7 +58,7 @@ function bigO(array) {
 }
 ```
 
-It's important to note that the fact that this function uses an array twice doesn't matter. What's different here is that something is *happening* to the variable after iterating through it- adding or multiplying it into the array. 
+It's important to note that the fact that this function uses an array or for loop twice doesn't matter. What's different here is that something is *happening* to the variable after iterating through it- adding or multiplying it into the array. 
 
 Since both loops iterate over all n elements of the array, the time complexity of each loop is O(n). Therefore, the overall time complexity of the function is O(n) + O(n) = O(2n), which is simplified to O(n).
 
