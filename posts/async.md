@@ -89,6 +89,7 @@ performTask()
 
 ## Async-Await:
 ![Async-Await](https://miro.medium.com/v2/resize%3Afit%3A1136/format%3Awebp/1%2AQJpDCVVeYhklYJ3uJGNRXQ.jpeg)
+
 Async-await functions allow you to write asynchronous operations, but without blocking the execution thread. By marking a function as "async" and using the "await" keyword, you can pause the function's execution until a promise is resolved, making it appear like a regular blocking function call. 
 
 **Async:**
